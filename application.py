@@ -11,8 +11,17 @@ def hello_world(name=None):
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    name = request.form['name']
-    return redirect(url_for('hello_world', name=name))
+    try:
+        name = request.form['name']
+        if not name:
+            raise ValueError("Name is required.")
+        return redirect(url_for('hello_world', name=name))
+
+    except ValueError as e:
+        return render_template('error.html', error_message=str(e))
+
+    
+
 
 
 if __name__ == '__main__':
