@@ -15,10 +15,10 @@ def allowed_file(filename):
 @app.route("/", methods=["GET", "POST"])
 def upload_file():
     if request.method == "POST":
-        if "file" not in request.files:
+        if "image" not in request.files:
             return "No file part"
         
-        file = request.files["file"]
+        file = request.files["image"]
 
         if file.filename == "":
             return "No selected file"
@@ -28,7 +28,7 @@ def upload_file():
             file.save(filepath)
             return redirect(url_for("upload_file"))
 
-    return render_template("index.html")
+    return render_template("upload.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

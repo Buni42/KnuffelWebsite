@@ -1,12 +1,11 @@
-document.getElementById("fileInput").addEventListener("change", function(event) {
-    let previewContainer = document.getElementById("previewContainer");
-    previewContainer.innerHTML = "";  
 
-    let file = event.target.files[0];
-    if (file) {
-        let img = document.createElement("img");
-        img.src = URL.createObjectURL(file);
-        img.style.maxWidth = "300px";
-        previewContainer.appendChild(img);
+Dropzone.options.myDropzone = {
+    paramName: "image",  // Ensure it matches the backend name
+    maxFilesize: 10,  // MB limit
+    acceptedFiles: "image/*",
+    autoProcessQueue: true,  // Automatically upload -> we dont want this, we want an actual working button to confirm the upload.
+    init: function() {
+        console.log("Dropzone initialized");
     }
-});
+};
+
