@@ -1,7 +1,7 @@
-body {
-    font-family: Arial, sans-serif;
+header {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif, sans-serif;
     text-align: center;
-    padding: 35px;
+    padding: 15px;
 }
 
 input {
@@ -14,6 +14,9 @@ button {
     color: white;
     border: none;
     cursor: pointer;
+    align-items: center;
+    align-self: center;
+    align-content: center;
 }
 
 button:hover {
