@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+{% block content %}
+<header>
+    <h1>Upload Your Image</h1>
+</header>
+<main>
+    <!-- Dropzone Form -->
+    <form action="{{ url_for('upload_file') }}" class="dropzone" id="myDropzone">
+        <div class="dz-message">Drag & drop files here or click to upload</div>
+        <button type="submit">Upload</button>
+    </form>
+
+    <!-- Traditional Upload Form >
+    < form action="/" method="post" enctype="multipart/form-data" >
+        <input type="file" id="fileInput" name="image" accept="image/*">
+        <button type="submit">Upload</button>
+    </form-->
+
+    
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.js"></script>
+<script src="{{ url_for('static', filename='script.js') }}" ></script>
+{% endblock %}
