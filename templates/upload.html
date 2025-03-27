@@ -1,5 +1,5 @@
 {% extends "index.html" %}
-{% block content %}
+{% block Upload %}
 <header>
     <h1>Upload Your Image</h1>
 </header>
@@ -7,9 +7,10 @@
     <!-- Dropzone Form -->
     <form action="{{ url_for('upload_file') }}" class="dropzone" id="myDropzone">
         <div class="dz-message">Drag & drop files here or click to upload</div>
+        <button type="submit">Upload</button>
     </form>
+
     
-    <button type="submit">Upload</button>
     <!-- Traditional Upload Form >
     < form action="/" method="post" enctype="multipart/form-data" >
         <input type="file" id="fileInput" name="image" accept="image/*">

@@ -10,7 +10,7 @@ input {
 
 button {
     padding: 10px;
-    background-color: blue;
+    background-color: #2674a5;
     color: white;
     border: none;
     cursor: pointer;
@@ -21,4 +21,10 @@ button {
 
 button:hover {
     background-color: #d6075d;
+}
+
+.navbar-nav {
+    width: 100%;
+    display: flex;
+    justify-content: right;
 }
