@@ -1,10 +1,12 @@
 
 Dropzone.options.myDropzone = {
     paramName: "image",  // Ensure it matches the backend name
-    maxFilesize: 100,  // MB limit
+    maxFilesize: 10,  // MB limit
     maxFiles: 10, // Maximum files per upload
     acceptedFiles: "image/*", //accept only images
-    clickable: "#uploadBtn",
+    clickable: "#uploadBtn", // make uploadbtn clickable for dropzone
+    //clickable: "#myDropzone", // make dropzone itself clickable for dropzone
+    addRemoveLinks: true,
     
     autoProcessQueue: false,  // Automatically upload -> we dont want this, we want an actual working button to confirm the upload.
     init: function() {
@@ -22,6 +24,7 @@ Dropzone.options.myDropzone = {
         
         // Remove preview after each successful upload
         myDropzone.on("success", function (file) {
+            document.getElementById("submitBtn").disabled = true; // Disable submit button again.
             setTimeout(function () {
                 myDropzone.removeFile(file);
             }, 1000); // Delay to show success message briefly

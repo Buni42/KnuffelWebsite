@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 # Initialize Flask-Limiter (rate limiter)
 limiter = Limiter(
-    get_remote_address,  # Uses IP address for rate limiting
+    get_remote_address,  # Uses IP address for rate limiting -> becomes a problem with shared IP's, companies with NAT or UAntwerpen
     app=app,
     default_limits=["10 per minute"]  # Default limit: 10 uploads per minute
 )
@@ -76,8 +76,6 @@ def upload_file():
             return redirect(url_for("upload_file"))
 
     return render_template("upload.html")
-
-
 
 
 @app.route("/about")
