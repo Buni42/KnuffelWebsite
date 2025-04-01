@@ -5,17 +5,11 @@
 </header>
 <main>
     <!-- Dropzone Form -->
-    <form action="{{ url_for('upload_file') }}" class="dropzone" id="myDropzone">
-        <div class="dz-message">Drag & drop files here or click to upload</div>
-        <button type="submit">Upload</button>
-    </form>
-
-    
-    <!-- Traditional Upload Form >
-    < form action="/" method="post" enctype="multipart/form-data" >
-        <input type="file" id="fileInput" name="image" accept="image/*">
-        <button type="submit">Upload</button>
-    </form-->
+        <form action="{{ url_for('upload_file') }}" class="dropzone" id="myDropzone">
+            <div class="dz-message">Drag & drop files here or click to upload</div>
+        </form>
+        <button id="uploadBtn">Upload</button>
+        <button id="submitBtn">Submit</button>
 
     
 </main>
