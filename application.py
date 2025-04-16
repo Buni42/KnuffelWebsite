@@ -59,7 +59,7 @@ def too_large(e):
 
 @app.route("/", methods=["GET","POST"])
 # This ensures that users cannot upload more than x# files per minute from the same IP.
-@limiter.limit("10 per minute") 
+@limiter.limit("20 per minute") 
 def upload_file():
     if request.method == "POST":
         if "image" not in request.files:
