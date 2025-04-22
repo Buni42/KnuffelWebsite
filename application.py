@@ -1,17 +1,31 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
 from PIL import Image
 import os
+import uuid
 
 #initialize flask application
 app = Flask(__name__)
+app.secret_key = "secret_key" # -> how to make this actually secret?
+
+# Create session so that we can distinguish every user from a NAT network.
+# This will be especially usefull for when we want to limit the amount of uploads for every user.
+def get_session_id():
+    if "uuid" not in session:
+        session["uuid"] = str(uuid.uuid4())
+    print("sessionID: " + session["uuid"])
+    return session["uuid"]
+
+# The problem with session based limiting is that the user can bypass the cookies by deleting them or using incognito mode.
+# We can use Server-side session tracking by saving the session data 
+
 
 # Initialize Flask-Limiter (rate limiter)
 limiter = Limiter(
-    get_remote_address,  # Uses IP address for rate limiting -> becomes a problem with shared IP's, companies with NAT or UAntwerpen
+    get_session_id,  # doesnt use IP address for rate limiting -> doesnt become a problem with shared IP's, companies with NAT or UAntwerpen
     app=app,
     default_limits=["10 per minute"]  # Default limit: 10 uploads per minute
 )
@@ -83,4 +97,5 @@ def about():
     return render_template("about.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+   app.run(host='0.0.0.0', port=5000, debug=True)
+
