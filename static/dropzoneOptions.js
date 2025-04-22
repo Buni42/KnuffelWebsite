@@ -4,7 +4,6 @@ Dropzone.options.myDropzone = {
     maxFilesize: 10,  // MB limit
     maxFiles: 10, // Maximum files per upload
     acceptedFiles: "image/*", //accept only images
-    //clickable: "#uploadBtn", // make uploadbtn clickable for dropzone
     clickable: "#myDropzone", // make dropzone itself clickable for dropzone
     addRemoveLinks: true,
     parallelUploads: 10, // Ensures all files are processed together
@@ -56,6 +55,24 @@ Dropzone.options.myDropzone = {
         });
 
         console.log("Dropzone initialized");
+
+        // Handle "Take Picture" button click
+        document.getElementById("takePicBtn").addEventListener("click", function () {
+            document.getElementById("cameraInput").click();  // Trigger hidden file input
+        });
+
     }
 };
 
+// Function to add the captured image to Dropzone
+function addToDropzone(event) {
+    var file = event.target.files[0];
+    if (file) {
+        var formData = new FormData();
+        formData.append("image", file);
+
+        // Manually add file to Dropzone queue
+        var myDropzone = Dropzone.forElement("#myDropzone");
+        myDropzone.addFile(file);  // Add file to the queue
+    }
+}

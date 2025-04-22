@@ -10,8 +10,17 @@
     <form action="{{ url_for('upload_file') }}" class="dropzone" id="myDropzone">
         <div class="dz-message">Drag & drop files here or click to upload</div>
     </form>
+
+    <!-- Button to trigger camera (only visible on mobile) -->
+    <button type="takePicBtn" id="takePicBtn" class="mobile-only">Take Picture</button>
+
+    <!-- Hidden file input for camera upload -->
+    <input type="file" id="cameraInput" accept="image/*" capture="camera" style="display: none;" onchange="addToDropzone(event)">
+    
+    <!-- Submit button -->
     <button id="submitBtn">Submit</button>
 </main>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.js"></script>
 <script src="{{ url_for('static', filename='dropzoneOptions.js') }}" ></script>
