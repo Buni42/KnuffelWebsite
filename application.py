@@ -20,7 +20,7 @@ def get_session_id():
     return session["uuid"]
 
 # The problem with session based limiting is that the user can bypass the cookies by deleting them or using incognito mode.
-# We can use Server-side session tracking by saving the session data 
+# We can use reCAPTCHA against bots and/or server side tracking against user abuse
 
 
 # Initialize Flask-Limiter (rate limiter)

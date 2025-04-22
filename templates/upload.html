@@ -12,10 +12,10 @@
     </form>
 
     <!-- Button to trigger camera (only visible on mobile) -->
-    <button type="takePicBtn" id="takePicBtn" class="mobile-only">Take Picture</button>
+    <button type="button" id="takePicBtn">Take Picture</button>
 
     <!-- Hidden file input for camera upload -->
-    <input type="file" id="cameraInput" accept="image/*" capture="camera" style="display: none;" onchange="addToDropzone(event)">
+    <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display: none;">
     
     <!-- Submit button -->
     <button id="submitBtn">Submit</button>
