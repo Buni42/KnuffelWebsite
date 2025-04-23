@@ -3,20 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Warmste Week</title>
+    <title>Knuffelwebsite</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
 </head>
 <body>
-
+    
     <!-- a simplistic navbar -->
     <div class="pos-f-t">
         <div class="collapse" id="navbarToggleExternalContent">
           <div class="bg-light p-4">
             <li class="nav-item">
-                <a class="nav-link active" href="{{ url_for('upload_file') }}">Home</a>
+                <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+          </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="{{ url_for('upload') }}">Upload</a>
             </li>
             <li class="nav-item">
                   <a class="nav-link" href="{{ url_for('about') }}">About</a>
@@ -42,6 +44,10 @@
 
     <!--About page-->
     {% block About %}
+    {% endblock %}
+
+    <!-- Home page -->
+    {% block Home %}
     {% endblock %}
 
 </body>

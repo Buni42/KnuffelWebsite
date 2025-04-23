@@ -66,6 +66,7 @@ function addToDropzone(event) {
     }
 }
 
+// For mobile users, add the take picture button
 window.addEventListener("DOMContentLoaded", () => {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     const takePicBtn = document.getElementById("takePicBtn");

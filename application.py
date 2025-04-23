@@ -71,10 +71,10 @@ def too_large(e):
     return "Too many uploads", 429
 
 
-@app.route("/", methods=["GET","POST"])
+@app.route("/upload", methods=["GET","POST"])
 # This ensures that users cannot upload more than x# files per minute from the same IP.
 @limiter.limit("20 per minute") 
-def upload_file():
+def upload():
     if request.method == "POST":
         if "image" not in request.files:
             return "No file part"
@@ -87,7 +87,7 @@ def upload_file():
         if allowed_file(file.filename, file):
             filepath = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
             file.save(filepath)
-            return redirect(url_for("upload_file"))
+            return redirect(url_for("upload"))
 
     return render_template("upload.html")
 
@@ -95,6 +95,10 @@ def upload_file():
 @app.route("/about")
 def about():
     return render_template("about.html")
+
+@app.route("/")
+def home():
+    return render_template("home.html")
 
 if __name__ == "__main__":
    app.run(host='0.0.0.0', port=5000, debug=True)

@@ -1,0 +1,22 @@
+{% extends "index.html" %}
+{% block Home %}
+
+<div class="homepage_container">
+<h1><strong>Welkom op de Knuffelbox!</strong></h1>
+<h3><strong>Onze website is voorlopig in onderhoud...</strong></h3>
+<div class="info">
+Knuffelbox komt online binnen...
+</div>
+    <div class="timer" id="countdown"></div>
+    <div class="afbeeldingen">
+        <img src="{{ url_for('static', filename='logoww.png') }}" alt="Logo De Warmste Week" />
+        <img src="{{ url_for('static', filename='logows.png') }}" alt="Logo Welzijnsschakel" />
+    </div>
+    <div class="info">
+        Voor meer informatie over ons, surf naar <a href="https://welzijnsschakel-hemiksem.be/" target="_blank">onze website!</a>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='timerHomePage.js') }}" ></script>
+
+
+{% endblock %}
