@@ -2,24 +2,27 @@
 {% block Upload %}
 
 <header>
-    <h1>Upload Your Image</h1>
+    <h1>Upload Your Image(s)</h1>
 </header>
 
 <main>
     <!-- Dropzone Form -->
-    <form action="{{ url_for('upload_file') }}" class="dropzone" id="myDropzone">
+    <form action="{{ url_for('upload') }}" class="dropzone" id="myDropzone">
         <div class="dz-message">Drag & drop files here or click to upload</div>
     </form>
 
     <!-- Button to trigger camera (only visible on mobile) -->
-    <button type="takePicBtn" id="takePicBtn" class="mobile-only">Take Picture</button>
+    <button type="button" id="takePicBtn">Take Picture</button>
 
     <!-- Hidden file input for camera upload -->
-    <input type="file" id="cameraInput" accept="image/*" capture="camera" style="display: none;" onchange="addToDropzone(event)">
+    <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display: none;">
     
     <!-- Submit button -->
     <button id="submitBtn">Submit</button>
 </main>
+
+<!-- Add "enter name" zone -->
+
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.js"></script>

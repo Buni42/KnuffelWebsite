@@ -1,4 +1,3 @@
-
 Dropzone.options.myDropzone = {
     paramName: "image",  // Ensure it matches the backend name
     maxFilesize: 10,  // MB limit
@@ -17,21 +16,10 @@ Dropzone.options.myDropzone = {
             document.getElementById("submitBtn").disabled = false;
         });
 
-
         document.getElementById("submitBtn").addEventListener("click", function () {
             myDropzone.processQueue();  // Manually trigger upload
         });
         
-        // Remove preview after each successful upload -> dont need this, we can do it in one go when the queue is complete
-     /*    myDropzone.on("success", function (file) {
-            console.log("file uploaded.")
-
-            document.getElementById("submitBtn").disabled = true; // Disable submit button again.
-            setTimeout(function () {
-                myDropzone.removeFile(file);
-            }, 1000); // Delay to show success message briefly
-        });
- */
         // Remove all previews when queue is complete
         myDropzone.on("queuecomplete", function () {
             console.log("file(s) uploaded.")
@@ -60,6 +48,7 @@ Dropzone.options.myDropzone = {
         document.getElementById("takePicBtn").addEventListener("click", function () {
             document.getElementById("cameraInput").click();  // Trigger hidden file input
         });
+        
 
     }
 };
@@ -76,3 +65,13 @@ function addToDropzone(event) {
         myDropzone.addFile(file);  // Add file to the queue
     }
 }
+
+// For mobile users, add the take picture button
+window.addEventListener("DOMContentLoaded", () => {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const takePicBtn = document.getElementById("takePicBtn");
+
+    if (!isMobile && takePicBtn) {
+        takePicBtn.style.display = "none";
+    }
+});

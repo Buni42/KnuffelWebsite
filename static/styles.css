@@ -23,11 +23,7 @@ p {
     color: #555;
 }
 
-/* General Navbar Styling 
-.navbar {
-    padding: 10px 15px;
-    border-radius: 5px;
-}*/
+/* General Navbar Styling */    
 
 /* Navbar Button */
 .navbar-toggler {
@@ -40,6 +36,7 @@ p {
 #navbarToggleExternalContent {
     transition: height 0.3s ease-in-out;
     border-radius: 5px;
+    color:#2c3e50;
 }
 
 /* Navigation Links */
@@ -113,16 +110,7 @@ p {
     color: #2c3e50;
 }
 
-/* Take Picture button for Mobile users */
-.mobile-only {
-    display: none;
-}
 
-@media (max-width: 768px) {
-    .mobile-only {
-        display: inline-block;  /* Maak het zichtbaar op mobiele apparaten */
-    }
-}
 
 /* Styling for file previews */
 .dz-preview {
@@ -177,7 +165,52 @@ p {
     background-color: #5db583;
 }
 
+
 #submitBtn:disabled {
     background-color: #95a5a6;
     cursor: not-allowed;
 }
+
+
+/* home page */
+
+
+
+.afbeeldingen {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .afbeeldingen img {
+    width: 220px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .info {
+    font-size: 1.5em;
+    color: #66c3cb;
+  }
+
+  a {
+    color: #66c3cb;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+  .timer {
+      font-size:1.5em;
+      color: #0c6591;
+      font-weight: bold;
+ }
+ .homepage_container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+  }
