@@ -2,21 +2,33 @@
 {% block Home %}
 
 <div class="homepage_container">
-<h1><strong>Welkom op de Knuffelbox!</strong></h1>
-<h3><strong>Onze website is voorlopig in onderhoud...</strong></h3>
+
+<p> </p>
+<h1><strong>Welkom op de Knuffelwebsite!</strong></h1>
+
+<p>
+    TEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXT
+    TEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXT    
+</p>
+
+<a href="{{ url_for('upload') }}" id="doeMeeBtn">Doe mee</a>
+
+<div class="afbeeldingen">
+    <img src="{{ url_for('static', filename='logoww.png') }}" alt="Logo De Warmste Week" />
+    <img src="{{ url_for('static', filename='logows.png') }}" alt="Logo Welzijnsschakel" />
+</div>
+
+<p>
+    TEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXT
+    TEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXT    
+</p>
+
+<a href="{{ url_for('leaderboard') }}" id="leaderboardBtn">leaderboard</a>
+
 <div class="info">
-Knuffelbox komt online binnen...
+    Voor meer informatie over ons, surf naar <a href="https://welzijnsschakel-hemiksem.be/" target="_blank">onze website!</a>
 </div>
-    <div class="timer" id="countdown"></div>
-    <div class="afbeeldingen">
-        <img src="{{ url_for('static', filename='logoww.png') }}" alt="Logo De Warmste Week" />
-        <img src="{{ url_for('static', filename='logows.png') }}" alt="Logo Welzijnsschakel" />
-    </div>
-    <div class="info">
-        Voor meer informatie over ons, surf naar <a href="https://welzijnsschakel-hemiksem.be/" target="_blank">onze website!</a>
-    </div>
 </div>
-<script src="{{ url_for('static', filename='timerHomePage.js') }}" ></script>
 
 
 {% endblock %}

@@ -64,11 +64,11 @@ def allowed_file(filename, file_stream):
 
 @app.errorhandler(413)
 def too_large(e):
-    return "File is too large", 413
+    return "Request Entity Too Large", 413
 
 @app.errorhandler(429)
 def too_large(e):
-    return "Too many uploads", 429
+    return "Too many requests", 429
 
 
 @app.route("/upload", methods=["GET","POST"])
@@ -95,6 +95,10 @@ def upload():
 @app.route("/about")
 def about():
     return render_template("about.html")
+
+@app.route("/leaderboard")
+def leaderboard():
+    return render_template("leaderboard.html")
 
 @app.route("/")
 def home():
