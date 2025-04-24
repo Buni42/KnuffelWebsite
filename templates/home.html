@@ -3,31 +3,38 @@
 
 <div class="homepage_container">
 
-<p> </p>
-<h1><strong>Welkom op de Knuffelwebsite!</strong></h1>
+    <p> </p>
+    <h1><strong>Welkom op de Knuffelwebsite!</strong></h1>
 
-<p>
-    TEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXT
-    TEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXT    
-</p>
+    <div class="text">
+        <h1>About Us</h1>
+    <h2>Bringing Smiles, One Photo at a Time</h2>
+    <p>Welcome to <strong>[Your Website Name]</strong>, a unique initiative dedicated to turning moments into meaningful change. Our platform allows users to upload their <strong>"knuffelselfies"</strong>—photos of themselves hugging a stuffed toy—to support a great cause. Every photo submitted represents a contribution, directly linked to a donation, helping to make a real difference.</p>
 
-<a href="{{ url_for('upload') }}" id="doeMeeBtn">Doe mee</a>
+    </div>
 
-<div class="afbeeldingen">
-    <img src="{{ url_for('static', filename='logoww.png') }}" alt="Logo De Warmste Week" />
-    <img src="{{ url_for('static', filename='logows.png') }}" alt="Logo Welzijnsschakel" />
-</div>
+    <a href="{{ url_for('upload') }}" id="doeMeeBtn">Doe mee</a>
 
-<p>
-    TEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXT
-    TEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXT    
-</p>
+    <div class="afbeeldingen">
+        <img src="{{ url_for('static', filename='logoww.png') }}" alt="Logo De Warmste Week" />
+        <img src="{{ url_for('static', filename='logows.png') }}" alt="Logo Welzijnsschakel" />
+    </div>
 
-<a href="{{ url_for('leaderboard') }}" id="leaderboardBtn">leaderboard</a>
+    <div class="text">
+        <h2>How It Works</h2>
+    <ul>
+        <li><strong>Upload your knuffelselfie</strong> – Take a picture with your loved ones.</li>
+        <li><strong>Make a donation</strong> – Your photo is linked to your contribution.</li>
+        <li><strong>See your impact</strong> – Your selfie will be showcased at a special event before being securely deleted for privacy.</li>
+    </ul>
+    </div>
 
-<div class="info">
-    Voor meer informatie over ons, surf naar <a href="https://welzijnsschakel-hemiksem.be/" target="_blank">onze website!</a>
-</div>
+    <a href="{{ url_for('leaderboard') }}" id="leaderboardBtn">leaderboard</a>
+
+    <div class="info">
+        Voor meer informatie over ons, surf naar <a href="https://welzijnsschakel-hemiksem.be/" target="_blank">onze website!</a>
+    </div>
+
 </div>
 
 

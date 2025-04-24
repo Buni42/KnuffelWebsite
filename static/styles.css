@@ -1,3 +1,18 @@
+
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    max-width: 100vw;
+    
+}
+  
+
 header {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif, sans-serif;
     text-align: center;
@@ -11,7 +26,7 @@ input {
 .container1 {
     max-width: 800px;
     margin: 0 auto;
-    background: white;
+    background: #ffffff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -23,15 +38,13 @@ p {
     color: #555;
 }
 
-/* General Navbar Styling */    
-
-
+/* General Navbar Styling for PC*/    
 
 /* Brand (logo / Home link) */
 .navbar-brand {
     font-size: 20px;
     font-weight: bold;
-    color: #ffffff !important;
+    color: #fdf6f0 !important;
     transition: color 0.3s;
 }
 
@@ -48,7 +61,7 @@ p {
 .navbar-nav .nav-link {
     font-size: 18px;
     font-weight: 500;
-    color: #ffffff !important;
+    color: #fdf6f0 !important;
     transition: color 0.3s ease-in-out;
 }
 
@@ -56,27 +69,38 @@ p {
     color: #5db583 !important;
 }
 
-/* Optional: Hamburger button styling (mobile) */
+/* General Navbar Styling for mobile*/    
+
+/* Navbar Button */
 .navbar-toggler {
     border: none;
     outline: none;
     box-shadow: none;
 }
 
-
-/* Mobile Adjustments */
-@media (max-width: 768px) {
-    .bg-light {
-        text-align: center;
-    }
-    
-    .navbar-toggler {
-        padding: 8px 12px;
-        background-color: #0c6591;
-        border-radius: 5px;
-    }
+/* Collapsible Menu */
+#navbarToggleExternalContent {
+    transition: height 0.3s ease-in-out;
+    border-radius: 5px;
+    color:#2c3e50;
 }
 
+/* Navigation Links */
+.bg-light .nav-item {
+    list-style: none;
+    margin: 5px 0;
+}
+
+.bg-light .nav-link {
+    font-size: 18px;
+    font-weight: 500;
+    color: #0c6591;
+    transition: color 0.3s ease-in-out;
+}
+
+.bg-light .nav-link:hover {
+    color: #5db583;
+}
 
 /* General Dropzone Styling */
 .dropzone {
@@ -149,7 +173,7 @@ p {
 }
 
 
-/* Submit Button */
+/* Buttons */
 #submitBtn, #takePicBtn, #doeMeeBtn, #leaderboardBtn {
     display: block;
 
@@ -169,15 +193,7 @@ p {
     text-align: center;
 }
 
-#leaderboardBtn:hover {
-    background-color: #5db583;
-}
-
-#submitBtn:hover {
-    background-color: #5db583;
-}
-
-#doeMeeBtn:hover {
+#leaderboardBtn:hover, #submitBtn:hover, #doeMeeBtn:hover{
     background-color: #5db583;
 }
 
@@ -190,35 +206,97 @@ p {
 
 /* home page */
 
-
+.homepage_container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    padding: 20px;
+    max-width: 900px;
+    width: 100%; /* Ensure it doesn't overflow */
+    margin: auto;
+    overflow-x: hidden;
+}
 
 .afbeeldingen {
     display: flex;
     justify-content: center;
-    gap: 30px;
-  }
+    flex-wrap: wrap;
+    gap: 20px;
+}
 
 .afbeeldingen img {
-width: 220px;
-height: auto;
-object-fit: contain;
+    width: 180px;
+    max-width: 90%;
+    height: auto;
+    object-fit: contain;
 }
 
 .info {
-font-size: 1.5em;
-color: #66c3cb;
+    font-size: 1.2em;
+    color: #66c3cb;
+    word-wrap: break-word;
 }
 
 .timer {
-    font-size:1.5em;
+    font-size: 1.2em;
     color: #0c6591;
     font-weight: bold;
 }
 
-.homepage_container {
-text-align: center;
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 50px;
+/* Responsive for smaller devices */
+@media (max-width: 600px) {
+    .homepage_container {
+        gap: 30px;
+        padding: 15px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 600px;
+        width: 90%; /* Ensure it doesn't overflow */
+        margin: auto;
+        overflow-x: hidden;
+    }
+
+    .info, .timer {
+        font-size: 1em;
+    }
+
+    #doeMeeBtn, #leaderboardBtn {
+        width: 100%;
+        font-size: 1.1rem;
+    }
+
+    .afbeeldingen img {
+        width: 140px;
+    }
+}
+
+/* text homepage styling */
+.text {
+    width: 80%; /* Takes up 80% of the parent container */
+    max-width: 1000px; /* Maximum width limit */
+
+    padding: 0 10px;
+    margin: auto;
+    text-align: justify;  /* Keep text justified */
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #333;
+    box-sizing: border-box;
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 600px) {
+    .text {
+        width: 90%; /* Keep it more flexible for smaller screens */
+        max-width: 1000px; /* Allow more room for text */
+        font-size: 1em;
+        text-align: justify; /* Keep text justified on smaller screens */
+        margin: auto;
+        line-height: 1.6;
+        box-sizing: border-box;
+    }
 }
