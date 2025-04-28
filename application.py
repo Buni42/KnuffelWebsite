@@ -126,7 +126,7 @@ def upload():
             filename = f"{uuid.uuid4().hex}.{get_file_extension(file.filename)}" # e.g. Random.jpg/.png
 
             # Now save the file 
-            filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+            filepath = os.path.join(user_folder, filename)
             file.save(filepath)
             return redirect(url_for("upload"))
 
