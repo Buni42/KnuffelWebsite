@@ -1,21 +1,41 @@
+from dotenv import load_dotenv
+load_dotenv()  # This will load the .env file automatically
+
 from flask import Flask, render_template, request, redirect, url_for, session
 
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
+from werkzeug.utils import secure_filename
+
 from PIL import Image
 import os
 import uuid
+from datetime import timedelta
 
-#initialize flask application
+# Add HTML page for error handling
+# Clean code up before deployment
+
+# Initialize flask application
 app = Flask(__name__)
-app.secret_key = "secret_key" # -> how to make this actually secret?
+app.permanent_session_lifetime = timedelta(hours=1) # Add session timer
+
+# If key is not set in production, the server will refuse to start.
+# This makes it safer than silently using an insecure default.
+
+secret_key = os.getenv("SECRET_KEY")
+if not secret_key:
+    raise RuntimeError("SECRET_KEY environment variable is not set!")
+
+app.secret_key = secret_key
+
 
 # Create session so that we can distinguish every user from a NAT network.
 # This will be especially usefull for when we want to limit the amount of uploads for every user.
 def get_session_id():
     if "uuid" not in session:
         session["uuid"] = str(uuid.uuid4())
+        session.permanent = True
     print("sessionID: " + session["uuid"])
     return session["uuid"]
 
@@ -45,15 +65,18 @@ def validate_image(file_stream):
         return True
     except (IOError, SyntaxError):
         return False  # Not a valid image
+    
+def get_file_extension(filename):
+    file_extension = filename.rsplit('.', 1)[1].lower()
+    return file_extension
 
 
 def allowed_file(filename, file_stream):
     # Check if the file has an extension
     if '.' not in filename:
         return False  # No extension at all
-
-    ext = filename.rsplit('.', 1)[1].lower()
-    if ext not in app.config["ALLOWED_EXTENSIONS"]:
+      
+    if get_file_extension(filename) not in app.config["ALLOWED_EXTENSIONS"]:
         return False  # Extension is not allowed
 
     # Validate the actual file content using Pillow
@@ -64,11 +87,11 @@ def allowed_file(filename, file_stream):
 
 @app.errorhandler(413)
 def too_large(e):
-    return "File is too large", 413
+    return "Request Entity Too Large", 413
 
 @app.errorhandler(429)
 def too_large(e):
-    return "Too many uploads", 429
+    return "Too many requests", 429
 
 
 @app.route("/upload", methods=["GET","POST"])
@@ -84,8 +107,26 @@ def upload():
         if file.filename == "":
             return "No selected file"
 
+
         if allowed_file(file.filename, file):
-            filepath = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
+
+            # Get (optional) user name 
+            user_name = request.form.get("name", "").strip()
+
+            if user_name:
+                folder_name = secure_filename(user_name)
+            else:
+                folder_name = secure_filename(get_session_id())
+
+            # Create user folder if it doesn't exist
+            user_folder = os.path.join(app.config["UPLOAD_FOLDER"], folder_name)
+            os.makedirs(user_folder, exist_ok=True)
+
+            # Create unique filename for every upload
+            filename = f"{uuid.uuid4().hex}.{get_file_extension(file.filename)}" # e.g. Random.jpg/.png
+
+            # Now save the file 
+            filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
             file.save(filepath)
             return redirect(url_for("upload"))
 
@@ -95,6 +136,10 @@ def upload():
 @app.route("/about")
 def about():
     return render_template("about.html")
+
+@app.route("/leaderboard")
+def leaderboard():
+    return render_template("leaderboard.html")
 
 @app.route("/")
 def home():

@@ -50,11 +50,19 @@ Dropzone.options.myDropzone = {
         });
         
 
+        // Handle file input (take picture)
+        document.getElementById("cameraInput").addEventListener("change", function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                myDropzone.addFile(file); // Add manually to Dropzone
+            }
+        });
+
     }
 };
 
 // Function to add the captured image to Dropzone
-function addToDropzone(event) {
+/*function addToDropzone(event) {
     var file = event.target.files[0];
     if (file) {
         var formData = new FormData();
@@ -64,14 +72,5 @@ function addToDropzone(event) {
         var myDropzone = Dropzone.forElement("#myDropzone");
         myDropzone.addFile(file);  // Add file to the queue
     }
-}
+}*/
 
-// For mobile users, add the take picture button
-window.addEventListener("DOMContentLoaded", () => {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    const takePicBtn = document.getElementById("takePicBtn");
-
-    if (!isMobile && takePicBtn) {
-        takePicBtn.style.display = "none";
-    }
-});
