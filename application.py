@@ -85,13 +85,14 @@ def allowed_file(filename, file_stream):
 
     return True
 
+
 @app.errorhandler(413)
 def too_large(e):
-    return "Request Entity Too Large", 413
+    return render_template('error.html', error_code=413, error_message="Request Entity Too Large. The file you're trying to upload exceeds the maximum size allowed.")
 
 @app.errorhandler(429)
-def too_large(e):
-    return "Too many requests", 429
+def too_many(e):
+    return render_template('error.html', error_code=429, error_message="Too many requests. Please wait before trying again.")
 
 
 @app.route("/upload", methods=["GET","POST"])
@@ -113,8 +114,9 @@ def upload():
             # Get (optional) user name 
             user_name = request.form.get("name", "").strip()
 
+            # If the user gave a name, use that as a folder
             if user_name:
-                folder_name = secure_filename(user_name)
+                folder_name = secure_filename(user_name) 
             else:
                 folder_name = secure_filename(get_session_id())
 
