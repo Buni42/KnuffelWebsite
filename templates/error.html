@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error {{ error_code }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+            padding: 50px;
+        }
+        .error-container {
+            border: 2px solid #d9534f;
+            background-color: #f8d7da;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+            margin: auto;
+        }
+        h1 {
+            color: #d9534f;
+        }
+        p {
+            color: #721c24;
+        }
+        a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="error-container">
+        <h1>Error {{ error_code }}</h1>
+        <p>{{ error_message }}</p>
+        <p>Go back to the <a href="{{ url_for('home') }}">Home Page</a> or <a href="{{ url_for('upload') }}">try uploading again</a>.</p>
+    </div>
+
+</body>
+</html>

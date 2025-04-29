@@ -2,19 +2,13 @@ from dotenv import load_dotenv
 load_dotenv()  # This will load the .env file automatically
 
 from flask import Flask, render_template, request, redirect, url_for, session
-
 from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
 
 from werkzeug.utils import secure_filename
-
 from PIL import Image
 import os
 import uuid
 from datetime import timedelta
-
-# Add HTML page for error handling
-# Clean code up before deployment
 
 # Initialize flask application
 app = Flask(__name__)
@@ -22,7 +16,6 @@ app.permanent_session_lifetime = timedelta(hours=1) # Add session timer
 
 # If key is not set in production, the server will refuse to start.
 # This makes it safer than silently using an insecure default.
-
 secret_key = os.getenv("SECRET_KEY")
 if not secret_key:
     raise RuntimeError("SECRET_KEY environment variable is not set!")
@@ -39,9 +32,6 @@ def get_session_id():
     print("sessionID: " + session["uuid"])
     return session["uuid"]
 
-# The problem with session based limiting is that the user can bypass the cookies by deleting them or using incognito mode.
-# We can use reCAPTCHA against bots and/or server side tracking against user abuse
-
 
 # Initialize Flask-Limiter (rate limiter)
 limiter = Limiter(
@@ -56,7 +46,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["ALLOWED_EXTENSIONS"] = {"png", "jpg", "jpeg"}
 
-
+# Validate the actual file content using Pillow
 def validate_image(file_stream):
     try:
         img = Image.open(file_stream)
@@ -65,6 +55,7 @@ def validate_image(file_stream):
         return True
     except (IOError, SyntaxError):
         return False  # Not a valid image
+    
     
 def get_file_extension(filename):
     file_extension = filename.rsplit('.', 1)[1].lower()
@@ -79,23 +70,23 @@ def allowed_file(filename, file_stream):
     if get_file_extension(filename) not in app.config["ALLOWED_EXTENSIONS"]:
         return False  # Extension is not allowed
 
-    # Validate the actual file content using Pillow
     if not validate_image(file_stream):
         return False  # The file is not a real image
 
     return True
 
+
 @app.errorhandler(413)
 def too_large(e):
-    return "Request Entity Too Large", 413
+    return render_template('error.html', error_code=413, error_message="Request Entity Too Large. The file you're trying to upload exceeds the maximum size allowed.")
 
 @app.errorhandler(429)
-def too_large(e):
-    return "Too many requests", 429
+def too_many(e):
+    return render_template('error.html', error_code=429, error_message="Too many requests. Please wait before trying again.")
 
 
 @app.route("/upload", methods=["GET","POST"])
-# This ensures that users cannot upload more than x# files per minute from the same IP.
+# This ensures that users cannot upload more than x# files per minute from the same session.
 @limiter.limit("20 per minute") 
 def upload():
     if request.method == "POST":
@@ -113,8 +104,9 @@ def upload():
             # Get (optional) user name 
             user_name = request.form.get("name", "").strip()
 
+            # If the user gave a name, use that as a folder
             if user_name:
-                folder_name = secure_filename(user_name)
+                folder_name = secure_filename(user_name) 
             else:
                 folder_name = secure_filename(get_session_id())
 
@@ -126,7 +118,7 @@ def upload():
             filename = f"{uuid.uuid4().hex}.{get_file_extension(file.filename)}" # e.g. Random.jpg/.png
 
             # Now save the file 
-            filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+            filepath = os.path.join(user_folder, filename)
             file.save(filepath)
             return redirect(url_for("upload"))
 

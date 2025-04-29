@@ -10,10 +10,10 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     if (navbarPC) {
-        navbarPC.style.display = isMobile ? "none" : "";
+        navbarPC.style.display = isMobile ? "none" : ""; // If mobile true, then navbarPC = none, else do nothing
     }
 
     if (navbarMobile) {
-        navbarMobile.style.display = isMobile ? "" : "none";
+        navbarMobile.style.display = isMobile ? "" : "none"; // Same logic
     }
 });
