@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Betaling geslaagd</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_betaalpagina.css') }}">
+</head>
+
+<body>
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="height: 100vh;">
+        <!-- GIF De Warmste Week -->
+        <div class="col-md-4 text-center">
+            <img src="{{ url_for('static', filename='de_warmste_week.gif') }}" alt="De Warmste Week Logo"
+                 class="gif">
+        </div>
+        <div class="col-12 text-center mt-6">
+            <h3>Bedankt voor uw donatie!</h3>
+            <p>Uw bijdrage maakt een groot verschil.</p>
+        </div>
+        <!-- Knop voor naar home -->
+        <div class="mt-6">
+            <a href="{{ url_for('home') }}" class="btn btn-home">Terug naar home</a>
+        </div>
+    </div>
+</div>
+
+<div class="progress custom-progress fixed-bottom">
+    <div class="progress-bar-bevestiging"></div>
+</div>
+<script>
+    console.log("bedrijfNaam:", localStorage.getItem("bedrijfNaam"));
+    console.log("aantalFotos:", localStorage.getItem("aantalFotos"));
+    console.log("naamMagOpSite =", localStorage.getItem("naamMagOpSite"));
+
+</script>
+
+</body>
+</html>

@@ -14,14 +14,28 @@
     <!-- Button to trigger camera (only visible on mobile) -->
     <button id="takePicBtn">Take Picture</button>
 
+    <!-- Submit button -->
+    <button id="submitBtn">Submit</button>
+
+    <!-- Take picture for desktop -->
+    <button id="startCameraBtn">Take Picture</button>
+
+    <!-- Camera preview container (initially hidden) -->
+    <div id="cameraContainer" style="display: none;">
+        <video id="video" autoplay playsinline style="width: 100%; max-width: 450px;"></video>
+        <button id="snap">Capture</button>
+    </div>
+
+    <!-- Hidden canvas for capturing the frame -->
+    <canvas id="cameraCanvas" style="display: none;"></canvas>
+
+
+
     <!-- Hidden file input for camera upload -->
     <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display: none;">
     
-    <!-- Submit button -->
-    <button id="submitBtn">Submit</button>
+    
 </main>
-
-<!-- Add "enter name" zone -->
 
 
 

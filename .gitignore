@@ -1,3 +1,4 @@
 .env
 betalingssysteem
 uploads
+__pycache__

@@ -23,11 +23,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('about') }}">About</a>
-                </li>  
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('leaderboard') }}">Leaderboard</a>
+                    <a class="nav-link" href="{{ url_for('Knuffelkampioenschap') }}">Knuffelkampioenschap</a>
                 </li> 
             </div>
         </div>
@@ -40,7 +36,7 @@
 
 
     <!-- a simplistic navbar for PC users -->
-    <nav class="navbar navbar-expand-lg navbar-dark" id="navbarPC" style="background-color: #0c6591;">
+    <nav class="navbar navbar-expand navbar-dark" id="navbarPC" style="background-color: #0c6591;">
         <a class="navbar-brand" href="{{ url_for('home') }}">Home</a>
 
         <div class="collapse navbar-collapse" >
@@ -51,11 +47,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('about') }}">About</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('leaderboard') }}">Leaderboard</a>
+                    <a class="nav-link" href="{{ url_for('Knuffelkampioenschap') }}">Knuffelkampioenschap</a>
                 </li>
 
             </ul>
@@ -74,16 +66,12 @@
     {% block Upload %}
     {% endblock %}
 
-    <!--About page-->
-    {% block About %}
-    {% endblock %}
-
     <!-- Home page -->
     {% block Home %}
     {% endblock %}
 
-    <!-- leaderboard page -->
-    {% block Leaderboard %}
+    <!-- Knuffelkampioenschap page -->
+    {% block Knuffelkampioenschap %}
     {% endblock %}
 
 </body>

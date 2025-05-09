@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+{% block Knuffelkampioenschap %}
+
+<div class="Knuffelkampioenschap_container">
+
+    <p>Een warme dankjewel aan alle bedrijven/organisaties die hun steentje bijdragen!</p>
+
+    <!-- Tabel -->
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr>
+                <th>Plaats</th>
+                <th>Bedrijfsnaam</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bedrijf, aantal in donaties.items() %}
+            <tr>
+                <td><b>{{ loop.index }}</b></td>
+                <td>{{ bedrijf }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='logows.png') }}" alt="Welzijnsschakel Hemiksem Tochtgenoten" class="logo">
+        <img src="{{ url_for('static', filename='logoww.png') }}" alt="De Warmste Week" class="logo">
+    </div>
+</div>
+{% endblock %}

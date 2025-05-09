@@ -4,13 +4,11 @@
 <div class="homepage_container">
 
     <p> </p>
-    <h1><strong>Welkom op de Knuffelwebsite!</strong></h1>
+    <h1><strong>Welkom op de KnuffelBox!</strong></h1>
 
     <div class="text">
-        <h1>About Us</h1>
-    <h2>Bringing Smiles, One Photo at a Time</h2>
-    <p>Welcome to <strong>[Your Website Name]</strong>, a unique initiative dedicated to turning moments into meaningful change. Our platform allows users to upload their <strong>"knuffelselfies"</strong>—photos of themselves hugging a stuffed toy—to support a great cause. Every photo submitted represents a contribution, directly linked to a donation, helping to make a real difference.</p>
-
+    <h1>Breng samen jullie warmte naar de camera!</h1>
+    <p>Welkom op <strong>de Knuffelbox</strong>, een initiatief voor de Warmste Week in samenwerking met de Universiteit Antwerpen. Neem een foto met vrienden of familie en steun een goed doel! </p> 
     </div>
 
     <a href="{{ url_for('upload') }}" id="doeMeeBtn">Doe mee</a>
@@ -19,17 +17,20 @@
         <img src="{{ url_for('static', filename='logoww.png') }}" alt="Logo De Warmste Week" />
         <img src="{{ url_for('static', filename='logows.png') }}" alt="Logo Welzijnsschakel" />
     </div>
-
+    <div class="afbeeldingen img">
+        <img src="{{ url_for('static', filename='logoua.png') }}" alt="Logo De Warmste Week" />
+    </div>
     <div class="text">
-        <h2>How It Works</h2>
+        <h2>Hoe het werkt</h2>
     <ul>
-        <li><strong>Upload your knuffelselfie</strong> – Take a picture with your loved ones.</li>
-        <li><strong>Make a donation</strong> – Your photo is linked to your contribution.</li>
-        <li><strong>See your impact</strong> – Your selfie will be showcased at a special event before being securely deleted for privacy.</li>
-    </ul>
+        <li>Druk op de knop <strong>doe mee</strong>.
+        <li>Maak of upload jullie <strong> knuffelselfie </strong>.
+        <li>Donneer een <strong>zelf te kiezen bedrag</strong> - Deze donaties zullen integraal naar de Warmste Week 2025 gaan. </li>
+        <li>Bekijk de knuffels – Op <strong>een groot slotevenement</strong> te Hemiksem worden alle foto's eenmalig geprojecteerd. Vervolgens zullen ze verwijderd worden.</li> 
+        <li>Doe mee aan <strong>het knuffelkampioenschap</strong> - Doe je mee in naam van je bedrijf? Verzamel dan zoveel mogelijk knuffels! Je kan het klassement onderaan bekijken door op <strong> Knuffelkampioenschap </strong> te drukken.   
     </div>
 
-    <a href="{{ url_for('leaderboard') }}" id="leaderboardBtn">leaderboard</a>
+    <a href="{{ url_for('Knuffelkampioenschap') }}" id="leaderboardBtn">Knuffelkampioenschap</a>
 
     <div class="info">
         Voor meer informatie over ons, surf naar <a href="https://welzijnsschakel-hemiksem.be/" target="_blank">onze website!</a>
