@@ -1,3 +1,6 @@
 .env
 betalingssysteem
 uploads
+__pycache__
+app.log
+donaties.json

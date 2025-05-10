@@ -1,0 +1,210 @@
+/* Algemene instellingen */
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+    padding: 15px;
+    background-color: #fdf6f0;
+    margin: 0;
+    padding: 0;
+    height: 100vh;                  /* Volledige hoogte van het scherm */
+    display: flex;
+    justify-content: center;        /* Centreert horizontaal */
+    align-items: center;            /* Centreert verticaal */
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* Container instellingen */
+.container {
+    max-width: 900px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;        /* Centreert de inhoud verticaal */
+    align-items: center;
+    min-height: 100vh;              /* Zorgt ervoor dat de container de hele hoogte inneemt */
+    text-align: center;
+}
+
+/* Centraal uitlijnen van de inhoud */
+.row {
+    width: 100%;
+    margin: 0;
+}
+
+/* Card instellingen */
+.card {
+    border-radius: 5px;
+    background-color: white;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #5db583;
+    color: white;
+    padding: 15px;
+    font-size: 24px;
+    border-radius: 5px;
+}
+
+.amount-display {
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 2px solid #66c3cb;
+    border-radius: 5px;
+}
+
+/* Slider instellingen */
+
+.slider-container {
+    margin: 40px auto;
+    accent-color: #66c3cb;
+}
+
+.form-range {
+    width: 100%;
+    background-color: #66c3cb;
+}
+
+/* Knoppen */
+.btn {
+    white-space: nowrap;
+    text-align: center;
+    font-size: 16px;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-verder {
+    width: 45%;
+    background-color: #66c3cb;
+    color: white;
+}
+
+.btn-verder:hover {
+    background-color: #0c6591;
+    color: white;
+}
+
+.btn-terug {
+    text-align: center;
+    width: 45%;
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-terug:hover {
+    background-color: #495057;
+}
+
+/* Progress bar instellingen */
+.custom-progress {
+    position: fixed;
+    width: 80%;
+    background-color: #e0e0e0;
+    margin: 25px auto;
+}
+
+.progress-bar {
+    background-color: #5db583;
+    height: 100%;
+    width: 33%;
+}
+/* ------------ */
+/* QR_code.html */
+/* ------------ */
+
+.btn-betaald {
+    width: 60%;
+    background-color: #66c3cb;
+    color: white;
+}
+
+.btn-betaald:hover {
+    background-color: #0c6591;
+    width: 60%;
+    color: white;
+}
+
+/* Progress bar instellingen */
+.progress-bar-QR-code {
+    background-color: #5db583;
+    height: 100%;
+    width: 66%;
+}
+
+/* Spinner gecentreerd */
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+/* Stijl voor de spinner */
+.spinner-border {
+    width: 40px;
+    height: 40px;
+    color: #66c3cb !important;
+    margin: 20px auto;
+}
+
+.text-mobile-url{
+    color: #66c3cb;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.text-mobile-url:hover{
+    color: #0c6591
+}
+
+/* ---------------- */
+/* Bevestiging.html */
+/* ---------------- */
+
+.gif {
+    max-width: 100%;
+    margin-bottom: 10px;
+}
+
+.progress-bar-bevestiging {
+    background-color: #5db583;
+    height: 100%;
+    width: 100%;
+}
+
+.btn-home {
+    display: block;
+    width: 200px;
+    text-align: center;
+    margin: -20px 20px 40px 20px;
+    background-color: #66c3cb;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-home:hover {
+    background-color: #0c6591;
+    color: white;
+}
+
+
+
+
+

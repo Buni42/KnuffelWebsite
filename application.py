@@ -4,16 +4,26 @@ load_dotenv()  # This will load the .env file automatically
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_limiter import Limiter
 
+from donatie_handler import verwerk_donatie, lees_donaties
+
 from werkzeug.utils import secure_filename
 from PIL import Image
 import os
 import uuid
 from datetime import timedelta
-
+import logging
 # Initialize flask application
 app = Flask(__name__)
 app.permanent_session_lifetime = timedelta(hours=1) # Add session timer
 
+logging.basicConfig(
+    level=logging.INFO,  # Of DEBUG voor meer details
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.FileHandler("app.log"),   # Log naar bestand
+        logging.StreamHandler()           # Log ook naar console (Gunicorn of terminal)
+    ]
+)
 # If key is not set in production, the server will refuse to start.
 # This makes it safer than silently using an insecure default.
 secret_key = os.getenv("SECRET_KEY")
@@ -37,7 +47,8 @@ def get_session_id():
 limiter = Limiter(
     get_session_id,  # doesnt use IP address for rate limiting -> doesnt become a problem with shared IP's, companies with NAT or UAntwerpen
     app=app,
-    default_limits=["10 per minute"]  # Default limit: 10 uploads per minute
+    default_limits=["10 per minute"],  # Default limit: 10 uploads per minute
+    #storage_uri="redis://localhost:6379"
 )
 
 # Configure upload folder
@@ -45,6 +56,7 @@ UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["ALLOWED_EXTENSIONS"] = {"png", "jpg", "jpeg"}
+app.config["MAX_CONTENT_LENGTH"] = 25*1024*1024
 
 # Validate the actual file content using Pillow
 def validate_image(file_stream):
@@ -98,45 +110,82 @@ def upload():
         if file.filename == "":
             return "No selected file"
 
-
         if allowed_file(file.filename, file):
 
             # Get (optional) user name 
-            user_name = request.form.get("name", "").strip()
-
-            # If the user gave a name, use that as a folder
-            if user_name:
-                folder_name = secure_filename(user_name) 
-            else:
-                folder_name = secure_filename(get_session_id())
-
-            # Create user folder if it doesn't exist
-            user_folder = os.path.join(app.config["UPLOAD_FOLDER"], folder_name)
-            os.makedirs(user_folder, exist_ok=True)
+            user_name = request.form.get("bedrijfNaam", "Knuffelbox website")
 
             # Create unique filename for every upload
             filename = f"{uuid.uuid4().hex}.{get_file_extension(file.filename)}" # e.g. Random.jpg/.png
 
+            # If the user gave a name, use that to create a folder by that name
+            # If not, save it in the uploads folder
+            if user_name:
+                folder_name = secure_filename(user_name) 
+                # Create user folder if it doesn't exist
+                user_folder = os.path.join(app.config["UPLOAD_FOLDER"], folder_name)
+                os.makedirs(user_folder, exist_ok=True)
+                filepath = os.path.join(user_folder, filename)
+
+            else:
+                filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+
             # Now save the file 
-            filepath = os.path.join(user_folder, filename)
             file.save(filepath)
             return redirect(url_for("upload"))
 
     return render_template("upload.html")
 
 
-@app.route("/about")
-def about():
-    return render_template("about.html")
-
-@app.route("/leaderboard")
-def leaderboard():
-    return render_template("leaderboard.html")
 
 @app.route("/")
 def home():
+    logging.info("Home")
     return render_template("home.html")
 
-if __name__ == "__main__":
-   app.run(host='0.0.0.0', port=5000, debug=True)
+@app.route("/Bedrag")
+def bedrag():
+    logging.info("Bedrag")
+    return render_template("Bedrag.html")
 
+@app.route("/QR_code")
+def qr_code():
+    logging.info("QR-code")
+    return render_template("QR_code.html")
+
+@app.route("/opslaan", methods=["POST"])
+def opslaan():
+    # Haal gegevens op uit het formulier
+    session["bedrijf"] = request.form.get("bedrijfNaam", "Knuffelbox website")
+    session["aantal_fotos"] = int(request.form.get("aantalFotos", 0))
+    session["naam_op_site"] = request.form.get("naamMagOpSite") == "true"
+
+    # Eventueel: zet de sessie permanent (blijft 1 uur geldig zoals ingesteld)
+    session.permanent = True
+
+    return redirect(url_for("bevestiging"))
+
+
+
+@app.route("/Bevestiging")
+def bevestiging():
+    bedrijf = session.get("bedrijf", "Knuffelbox website")
+    aantal_fotos = session.get("aantal_fotos", 0)
+
+    logging.info(f"Bevestiging: bedrijf={bedrijf}, aantal_fotos={aantal_fotos}")
+    verwerk_donatie(bedrijf, aantal_fotos)
+
+    return render_template("Bevestiging.html", bedrijf=bedrijf, aantalFotos=aantal_fotos)
+
+@app.route("/Bedankt")
+def bevestiginganoniem():
+    return render_template("Bevestiging.html")
+
+@app.route("/Knuffelkampioenschap")
+def Knuffelkampioenschap():
+    donaties = lees_donaties()
+    return render_template("Knuffelkampioenschap.html", donaties=donaties)
+
+if __name__ == "__main__":
+   app.run(host='0.0.0.0', port=5000, debug=False)
+application = app

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bepaal het bedrag</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_betaalpagina.css') }}">
+</head>
+
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 mt-5">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>Wil u extra doneren?</h3>
+                </div>
+                <div class="card-body">
+                    <p>
+                        Je hebt <span id="fotoAantal">0</span> foto('s) gekozen.</br>
+                        Je bijdrage bedraagt minimaal <strong><span id="minimumBedrag">€0.00</span></strong>.
+                    </p>
+                    <!-- Checkbox -->
+                    <div class="form-check mt-3">
+                        <input class="form-check-input" type="checkbox" id="joinAsCompany">
+                        <label class="form-check-label" for="joinAsCompany">
+                            Ik wil als bedrijf/organisatie meedoen aan het knuffelkampioenschap!
+                        </label>
+                    </div>
+
+                    <!-- Bedrijf + custom bedrag -->
+                    <div id="companyFields" style="display: none;" class="mt-3">
+                        <input type="text" id="companyName" class="form-control mb-2"
+                               placeholder="Bedrijf of organisatie (max. 35 tekens)">
+
+                        <div class="amount-input">
+                            <input type="text" id="customAmount" class="form-control"
+                                   placeholder="Gewenst bedrag voor extra donatie">
+                        </div>
+
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" id="AcceptConditions">
+                            <label class="form-check-label" for="AcceptConditions">Mijn naam mag op de site</label>
+                        </div>
+                    </div>
+
+                    <!-- Slider -->
+                    <div class="mt-3" id="sliderContainer">
+                        <div class="amount-display text-center mb-2" id="amount">€0.00</div>
+                        <input type="range" class="form-range w-100" min="0" max="25" value="0" step="1"
+                               id="amountSlider">
+                    </div>
+
+                    <!-- Knoppen -->
+                    <div class="mt-4 d-flex justify-content-between">
+                        <a href="{{ url_for('upload') }}" class="btn btn-secondary">Terug</a>
+                        <a href="{{ url_for('qr_code') }}" class="btn btn-verder">Verder</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="progress custom-progress fixed-bottom">
+    <div class="progress-bar"></div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Selecteer alle nodige HTML-elementen
+    const slider = document.getElementById("amountSlider");
+    const amountDisplay = document.getElementById("amount");
+    const joinAsCompany = document.getElementById("joinAsCompany");
+    const companyFields = document.getElementById("companyFields");
+    const companyNameInput = document.getElementById("companyName");
+    const customAmountInput = document.getElementById("customAmount");
+    const sliderContainer = document.getElementById("sliderContainer");
+    const fotoAantalSpan = document.getElementById("fotoAantal");
+    const minimumBedragSpan = document.getElementById("minimumBedrag");
+
+    // Algemene constante
+    const prijsPerFoto = 1; // 1 Euro
+
+
+    // Mock input van de site om te kunnen testen. Simuleer 1 tot 10 foto's
+    // localStorage.setItem("aantalFotos",Math.floor(Math.random() * 10) + 1);
+
+    // Haal het aantal foto's op
+    let aantalFotos = parseInt(localStorage.getItem("aantalFotos")) || 0;
+    let minBedrag = aantalFotos * prijsPerFoto;
+    let maxBedrag = minBedrag + 25;
+
+    // Update UI met het aantal foto's en minimum bedrag
+    fotoAantalSpan.innerText = aantalFotos;
+    minimumBedragSpan.innerText = "€" + minBedrag.toFixed(2);
+
+    // Zet slider dynamisch in
+    slider.min = minBedrag;
+    slider.max = maxBedrag;
+    slider.value = minBedrag;
+    amountDisplay.innerText = "€" + minBedrag.toFixed(2);
+
+    // Update bedrag bij slider-verandering
+    slider.addEventListener("input", () => {
+        amountDisplay.innerText = "€" + parseFloat(slider.value).toFixed(2);
+    });
+
+    // Checkbox gedrag voor bedrijf
+    joinAsCompany.addEventListener("change", function () {
+        if (this.checked) {
+            companyFields.style.display = "block";
+            sliderContainer.style.display = "none";
+        } else {
+            companyFields.style.display = "none";
+            sliderContainer.style.display = "block";
+        }
+    });
+
+    // Format bedrag van bedrijfsinput
+    customAmountInput.addEventListener("blur", () => {
+        let value = customAmountInput.value.replace(/[^\d,.\-]/g, '').replace(',', '.');
+        let bedrag = parseFloat(value);
+        if (!isNaN(bedrag)) {
+            customAmountInput.value = bedrag.toFixed(2);
+        } else {
+            customAmountInput.value = "";
+        }
+    });
+
+    // Wanneer gebruiker op "Verder" klikt
+    document.querySelector(".btn-verder").addEventListener("click", function (event) {
+        event.preventDefault();
+
+        let bedrag;
+        let TotaleBedrag;
+        let bedrijfNaam;
+
+        if (isNaN(aantalFotos) || aantalFotos < 0) {
+            alert("Ongeldig aantal foto's.");
+            return;
+        }
+
+        if (joinAsCompany.checked) {
+            // Bedrijf
+            bedrag = parseFloat(customAmountInput.value.replace(',', '.'));
+            bedrijfNaam = companyNameInput.value.trim();
+
+            if (bedrijfNaam === "") {
+                alert("Gelieve een bedrijfsnaam in te vullen.");
+                return;
+            }
+            if (bedrijfNaam.length > 35) {
+                alert("De bedrijfsnaam mag maximaal 35 tekens bevatten.");
+                return;
+            }
+            if (isNaN(bedrag) || bedrag <= 0) {
+                bedrag = 0; //alert("Gelieve een geldig bedrag in te voeren.");
+            }
+
+            // Bereken totaalbedrag (bedrag extra donatia + prijs voor aantal foto's)
+            TotaleBedrag = bedrag + minBedrag;
+        } else {
+            // Particulier
+            bedrijfNaam = "Knuffelbox website";
+            TotaleBedrag = parseFloat(slider.value);
+        }
+
+        localStorage.setItem("bedrag", TotaleBedrag.toFixed(2));
+        localStorage.setItem("bedrijfNaam", bedrijfNaam);
+        localStorage.setItem("naamMagOpSite", document.getElementById("AcceptConditions").checked);
+
+        window.location.href = "{{ url_for('qr_code') }}";
+    });
+});
+</script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
