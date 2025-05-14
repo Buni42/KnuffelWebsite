@@ -12,6 +12,7 @@ import os
 import uuid
 from datetime import timedelta
 import logging
+
 # Initialize flask application
 app = Flask(__name__)
 app.permanent_session_lifetime = timedelta(hours=1) # Add session timer
@@ -137,20 +138,16 @@ def upload():
     return render_template("upload.html")
 
 
-
 @app.route("/")
 def home():
-    logging.info("Home")
     return render_template("home.html")
 
 @app.route("/Bedrag")
 def bedrag():
-    logging.info("Bedrag")
     return render_template("Bedrag.html")
 
 @app.route("/QR_code")
 def qr_code():
-    logging.info("QR-code")
     return render_template("QR_code.html")
 
 @app.route("/opslaan", methods=["POST"])

@@ -190,6 +190,8 @@ p {
     cursor: pointer;
     transition: background-color 0.3s;
     text-align: center;
+    word-wrap: break-word; /* Break long words if needed */
+
 }
 
 #leaderboardBtn:hover, #submitBtn:hover, #doeMeeBtn:hover{
@@ -283,11 +285,11 @@ p {
 
     padding: 0 10px;
     margin: auto;
-    text-align: justify;  /* Keep text justified */
+    text-align:left;  /* Keep text justified */
     font-size: 1.1em;
     line-height: 1.6;
     color: #333;
-    box-sizing: border-box;
+    box-sizing:border-box;
 }
 
 /* Adjustments for smaller screens */
@@ -296,7 +298,7 @@ p {
         width: 90%; /* Keep it more flexible for smaller screens */
         max-width: 1000px; /* Allow more room for text */
         font-size: 1em;
-        text-align: justify; /* Keep text justified on smaller screens */
+        text-align: left; /* Keep text justified on smaller screens */
         margin: auto;
         line-height: 1.6;
         box-sizing: border-box;

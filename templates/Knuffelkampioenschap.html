@@ -11,22 +11,28 @@
             <tr>
                 <th>Plaats</th>
                 <th>Bedrijfsnaam</th>
+                <th>Aantal foto's</th>
             </tr>
         </thead>
         <tbody>
-            {% for bedrijf, aantal in donaties.items() %}
-            <tr>
-                <td><b>{{ loop.index }}</b></td>
-                <td>{{ bedrijf }}</td>
-            </tr>
-            {% endfor %}
+                {% for bedrijf, aantal in donaties.items() %}
+                <tr>
+                    <td><b>{{ loop.index }}</b></td>
+                    <td>{{ bedrijf }}</td>
+                    <td>{{ aantal }}</td>
+                </tr>
+                {% endfor %}
         </tbody>
     </table>
+
 
 
     <div class="logo-container">
         <img src="{{ url_for('static', filename='logows.png') }}" alt="Welzijnsschakel Hemiksem Tochtgenoten" class="logo">
         <img src="{{ url_for('static', filename='logoww.png') }}" alt="De Warmste Week" class="logo">
+    </div>
+    <div class="afbeeldingen img mt-3">
+        <img src="{{ url_for('static', filename='logoua.png') }}" alt="Logo De Warmste Week" />
     </div>
 </div>
 {% endblock %}
