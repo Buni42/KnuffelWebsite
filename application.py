@@ -170,7 +170,8 @@ def bevestiging():
     aantal_fotos = session.get("aantal_fotos", 0)
 
     logging.info(f"Bevestiging: bedrijf={bedrijf}, aantal_fotos={aantal_fotos}")
-    verwerk_donatie(bedrijf, aantal_fotos)
+    if bedrijf != "Knuffelbox website" and aantal_fotos > 0:
+        verwerk_donatie(bedrijf, aantal_fotos)
 
     return render_template("Bevestiging.html", bedrijf=bedrijf, aantalFotos=aantal_fotos)
 

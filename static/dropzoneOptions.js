@@ -126,7 +126,7 @@ Dropzone.options.myDropzone = {
         
         let stream;
 
-        // When "Take Picture" button is clicked
+        // When "start camera" button is clicked
         startCameraBtn.addEventListener('click', async () => {
         try {
             stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -140,17 +140,33 @@ Dropzone.options.myDropzone = {
         
         // Take picture and add to dropzone previeuw 
         snapButton.addEventListener("click", function () {
-            const ctx = canvas.getContext("2d");
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-          
-            canvas.toBlob(function (blob) {
-              const file = new File([blob], "webcam-picture.jpg", { type: "image/jpeg" });
-              myDropzone.addFile(file); // Adds to Dropzone preview & queue
-            }, "image/jpeg");
+
+            let countdownNumber = 4;
+            const countdownElement = document.getElementById("countdown");
+
+            const countdownInterval = setInterval(() => {
+                countdownNumber--;
+                if (countdownNumber > 0) {
+                    countdownElement.textContent = countdownNumber;
+                } else {
+                    clearInterval(countdownInterval);
+                    const ctx = canvas.getContext("2d");
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                
+                    canvas.toBlob(function (blob) {
+                    const file = new File([blob], "webcam-picture.jpg", { type: "image/jpeg" });
+                    myDropzone.addFile(file); // Adds to Dropzone preview & queue
+                    }, "image/jpeg");
+                    cameraContainer.style.display = "none" // close the preview
+                    countdownElement.textContent = "";
+                }
+            }, 1000); 
+            
           });
 
+        
 
     }
 };

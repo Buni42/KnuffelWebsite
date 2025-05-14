@@ -194,7 +194,7 @@ p {
 
 }
 
-#leaderboardBtn:hover, #submitBtn:hover, #doeMeeBtn:hover{
+#leaderboardBtn:hover, #submitBtn:hover, #doeMeeBtn:hover, #startCameraBtn:hover, #snap:hover{
     background-color: #5db583;
     text-decoration: none;
 }
@@ -388,4 +388,9 @@ p {
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 15px;
+}
+#countdown {
+    font-size: 48px;
+    text-align: center;
+    margin-top: 50px;
 }
