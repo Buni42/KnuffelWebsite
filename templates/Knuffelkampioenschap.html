@@ -15,16 +15,18 @@
             </tr>
         </thead>
         <tbody>
+            {% set ns = namespace(index=1) %}
             {% for bedrijf, aantal in donaties.items() %}
-            {% if bedrijf != 'Knuffelbox website' %}
-            <tr>
-                <td><b>{{ loop.index }}</b></td>
-                <td>{{ bedrijf }}</td>
-                <td>{{ aantal }}</td>
-            </tr>
-            {% endif %}
-        {% endfor %}
-        
+                {% if bedrijf != 'Knuffelbox website' %}
+                <tr>
+                    <td><b>{{ ns.index }}</b></td>
+                    <td>{{ bedrijf }}</td>
+                    <td>{{ aantal }}</td>
+                </tr>
+                {% set ns.index = ns.index + 1 %}
+                {% endif %}
+            {% endfor %}
+
     </table>
 
 

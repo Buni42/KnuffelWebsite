@@ -194,7 +194,7 @@ p {
 
 }
 
-#leaderboardBtn:hover, #submitBtn:hover, #doeMeeBtn:hover{
+#leaderboardBtn:hover, #submitBtn:hover, #doeMeeBtn:hover, #startCameraBtn:hover, #snap:hover{
     background-color: #5db583;
     text-decoration: none;
 }
